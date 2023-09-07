@@ -2,9 +2,11 @@ import { type User } from "../interface";
 
 interface UserListProps {
   users: User[];
+  showColors: boolean
 }
 
-const UserList = ({ users }: UserListProps) => {
+const UserList = ({ users, showColors }: UserListProps) => {
+
   return (
     <table width="100%">
       <thead>
@@ -18,9 +20,12 @@ const UserList = ({ users }: UserListProps) => {
       </thead>
 
       <tbody>
-        {users.map((user) => {
+        {users.map((user, index) => {
+          const backgroundColor = index % 2 === 0 ? "#333" : "#555";
+          
+          const cellColor = showColors ? backgroundColor : "transparent"
           return (
-            <tr key={user.id.value}>
+            <tr style={{ backgroundColor:cellColor }} key={index}>
               <td>
                 <img src={user.picture.thumbnail} alt={user.name.first} />
               </td>

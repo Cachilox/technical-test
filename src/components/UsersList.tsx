@@ -1,31 +1,29 @@
-import { type User } from "../interface";
+import { SortBy, type User } from "../interface";
 
 interface UserListProps {
   users: User[];
   showColors: boolean;
-  deleteUser: (email: string) => void
+  deleteUser: (email: string) => void;
+  changeSorting: (sort: SortBy) => void;
 }
 
-const UserList = ({ users, showColors, deleteUser }: UserListProps) => {
+const UserList = ({ users, showColors, deleteUser, changeSorting }: UserListProps) => {
   return (
     <table width="100%">
       <thead>
         <tr>
           <th>Photo</th>
-          <th>Name</th>
-          <th>Last name</th>
-          <th>Country</th>
+          <th className="pointer" onClick={() => changeSorting(SortBy.NAME)}>Name</th>
+          <th className="pointer" onClick={() => changeSorting(SortBy.LAST)}>Last name</th>
+          <th className="pointer" onClick={() => changeSorting(SortBy.COUNTRY)}>Country</th>
           <th>Actions</th>
         </tr>
       </thead>
 
-      <tbody>
-        {users.map((user, index) => {
-          const backgroundColor = index % 2 === 0 ? "#333" : "#555";
-
-          const cellColor = showColors ? backgroundColor : "transparent";
+      <tbody className={showColors ? "table--showColors" : ""}>
+        {users.map((user) => {
           return (
-            <tr style={{ backgroundColor: cellColor }} key={user.email}>
+            <tr key={user.phone}>
               <td>
                 <img src={user.picture.thumbnail} alt={user.name.first} />
               </td>

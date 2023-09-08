@@ -5,3 +5,21 @@
   text-align: center;
   width: 100%;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+  gap: 1.2rem;
+}
+
+.table--showColors tr:nth-child(odd) {
+  background: #333;
+}
+.table--showColors tr:nth-child(even) {
+  background: #555;
+}
+
+.pointer {
+  cursor: pointer;
+}

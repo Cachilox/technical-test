@@ -5,32 +5,43 @@ import { UsersList } from "./components";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
-  const [showColors, setShowColors] = useState(false)
+  const [showColors, setShowColors] = useState(false);
+  const [sortByCountry, setSortByCountry] = useState(false);
 
   const toggleColors = () => {
     setShowColors(!showColors);
-  }
+  };
+
+  const toggleSortByCountry = () => {
+    setSortByCountry((prev) => !prev);
+  };
 
   useEffect(() => {
     fetch("https://randomuser.me/api?results=100")
       .then((res) => res.json())
-      .then(res => {
-        setUsers(res.results)
+      .then((res) => {
+        setUsers(res.results);
       })
-      .catch(err => console.error(err))
-      
+      .catch((err) => console.error(err));
   }, []);
+
+  const sortedUsers = sortByCountry
+    ? users.toSorted((a, b) => {
+        return a.location.country.localeCompare(b.location.country);
+      })
+    : users;
 
   return (
     <>
       <h1>Technical test</h1>
       <header>
-        <button onClick={toggleColors}>
-          Toggle colors
+        <button onClick={toggleColors}>Toggle colors</button>
+        <button onClick={toggleSortByCountry}>
+          {sortByCountry ? "Do not sort by country" : "Sort by country"}
         </button>
       </header>
       <main>
-        <UsersList showColors={showColors} users={users} />
+        <UsersList showColors={showColors} users={sortedUsers} />
       </main>
     </>
   );

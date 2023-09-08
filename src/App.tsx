@@ -16,6 +16,11 @@ function App() {
     setSortByCountry((prev) => !prev);
   };
 
+  const handleDelete = (email: string) => {
+    const filteredUsers = users.filter((user) => user.email !== email)
+    setUsers(filteredUsers)
+  }
+
   useEffect(() => {
     fetch("https://randomuser.me/api?results=100")
       .then((res) => res.json())
@@ -41,7 +46,7 @@ function App() {
         </button>
       </header>
       <main>
-        <UsersList showColors={showColors} users={sortedUsers} />
+        <UsersList deleteUser={handleDelete} showColors={showColors} users={sortedUsers} />
       </main>
     </>
   );

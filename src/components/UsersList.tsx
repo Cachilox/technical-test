@@ -3,9 +3,10 @@ import { type User } from "../interface";
 interface UserListProps {
   users: User[];
   showColors: boolean;
+  deleteUser: (email: string) => void
 }
 
-const UserList = ({ users, showColors }: UserListProps) => {
+const UserList = ({ users, showColors, deleteUser }: UserListProps) => {
   return (
     <table width="100%">
       <thead>
@@ -24,7 +25,7 @@ const UserList = ({ users, showColors }: UserListProps) => {
 
           const cellColor = showColors ? backgroundColor : "transparent";
           return (
-            <tr style={{ backgroundColor: cellColor }} key={index}>
+            <tr style={{ backgroundColor: cellColor }} key={user.email}>
               <td>
                 <img src={user.picture.thumbnail} alt={user.name.first} />
               </td>
@@ -32,7 +33,7 @@ const UserList = ({ users, showColors }: UserListProps) => {
               <td>{user.name.last}</td>
               <td>{user.location.country}</td>
               <td>
-                <button>Delete</button>
+                <button onClick={() => deleteUser(user.email)}>Delete</button>
               </td>
             </tr>
           );

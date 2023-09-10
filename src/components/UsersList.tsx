@@ -21,9 +21,9 @@ const UserList = ({ users, showColors, deleteUser, changeSorting }: UserListProp
       </thead>
 
       <tbody className={showColors ? "table--showColors" : ""}>
-        {users.map((user) => {
+        {users?.map((user, index) => {
           return (
-            <tr key={user.phone}>
+            <tr key={index}>
               <td>
                 <img src={user.picture.thumbnail} alt={user.name.first} />
               </td>
